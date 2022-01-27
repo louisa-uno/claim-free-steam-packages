@@ -36,7 +36,7 @@ async def main():
 				for i in range(tries):
 					resp = await command(asf, cmd)
 					if resp.success:
-						print("\n" + resp.result)
+						print("\n" + resp.message)
 						successCodes = ["Items:", "Aktivierte IDs:"]
 						if any(x in resp.result for x in successCodes):
 							activatedPackage = True
