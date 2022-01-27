@@ -2,20 +2,10 @@ import contextlib
 from datetime import timedelta
 
 import joblib
+import requests
 from joblib import Parallel, delayed
 from requests_cache import CachedSession
 from tqdm import tqdm
-
-session = CachedSession(
-    'steam_cache',
-    use_cache_dir=True,
-    cache_control=False,
-    expire_after=timedelta(days=1),
-    allowable_methods=['GET'],
-    allowable_codes=[200],
-    match_headers=False,
-    stale_if_error=False,
-)
 
 
 @contextlib.contextmanager
@@ -52,11 +42,10 @@ def checkGame(game):
 		res = session.get(
 		    url='https://store.steampowered.com/api/appdetails/?appids=' +
 		    str(game) + '&cc=EE&l=english&v=1',
-		    # proxies={
-		    #     'http': f'socks5h://p.webshare.io:9999',
-		    #     'https': f'socks5h://p.webshare.io:9999'
-		    # }
-		)
+		    proxies={
+		        'http': f'socks5h://p.webshare.io:9999',
+		        'https': f'socks5h://p.webshare.io:9999'
+		    })
 	except Exception as e:
 		print('\nGot exception while trying to send request %s' % e)
 		return checkGame(game)
@@ -95,7 +84,7 @@ def checkGame(game):
 	return None
 
 
-res = session.get(
+res = requests.get(
     url='http://api.steampowered.com/ISteamApps/GetAppList/v2').json()
 
 apps = []
