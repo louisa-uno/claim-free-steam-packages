@@ -31,7 +31,7 @@ async def main():
 				print("Package not found in activated_packages")
 				cmd = "!addlicense app/" + app
 				activatedPackage = False
-				tries = 5
+				tries = 10
 				for i in range(tries):
 					resp = await command(asf, cmd)
 					if resp.success:
@@ -41,12 +41,13 @@ async def main():
 							activatedPackage = True
 							with open('activated_packages.txt', 'a') as f:
 								f.write(app + ",")
+							time.sleep(20)
 							break
 					else:
 						print(f'Error: {resp.message}')
-					time.sleep(5)
+					time.sleep(20)
 				if not activatedPackage:
-					time.sleep(5)
+					time.sleep(20)
 
 
 loop = asyncio.get_event_loop()
