@@ -1,4 +1,4 @@
-name: scraper-san-juan-gobierno
+name: Update the package_list.txt file
 
 on:
   schedule:
