@@ -1,4 +1,4 @@
-# Claim Steam free packages script
+# Claim free Steam  packages script
 
 This script does automate the activation of free packages (games, movies, DLC, etc.) on Steam. It does register as much as possible free packages to you Steam account.
 The regularly updated database contains more than 15,000 packages that will be added and available in the library forever after activation.
