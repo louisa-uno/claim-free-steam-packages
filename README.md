@@ -3,6 +3,16 @@
 This script does automate the activation of free packages (games, movies, DLC, etc.) on Steam. It does register as much as possible free packages to you Steam account.
 The regularly updated database contains more than 15,000 packages that will be added and available in the library forever after activation.
 
+## Instruction of usage
+
+1. Download the latest [ArchiSteamFarm](https://github.com/JustArchiNET/ArchiSteamFarm/releases/latest) release
+2. Set up [ArchiSteamFarm](https://github.com/JustArchiNET/ArchiSteamFarm/wiki/Setting-up)
+3. Download the [Windows executable](https://github.com/Luois45/claim-free-steam-packages/releases/latest) or just clone this repository
+4. Execute the activate_packages script or executable
+5. The script will create a activated_packages.txt file on execution. Don't edit or delete it unless you know what you're doing.
+6. Have a look at the remaining time and wait for it to finish, it may take a while
+7. Enjoy
+
 ## FAQ
 **Why it take so long to complete the script?**
 
