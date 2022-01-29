@@ -80,9 +80,9 @@ def checkGame(game):
 		# print('\nGot free app %d' % game)
 		return game
 
-	elif res[str(game)]['data']['is_free'] is False:
-		# print('\nGot paid app %d' % game)
-		return None
+	if res[str(game)]['data']['is_free'] is False:
+	    # print('\nGot paid app %d' % game)
+	    return None
 
 	print('Got faulty response %s' % res)
 	return None
