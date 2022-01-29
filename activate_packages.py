@@ -17,15 +17,10 @@ async def main():
 		with open('package_list.txt', 'r') as f:
 			apps = f.read().split(',')
 		for app in tqdm(apps, desc='Activating licenses'):
-			try:
-				with requests.get(
-				    'https://raw.githubusercontent.com/Luois45/claim-free-steam-packages/update-package_list/package_list.txt'
-				) as f:
-					apps = f.text.split(',')
-			except FileNotFoundError:
-				with open('activated_packages.txt', 'w') as f:
-					print("\nCreated activated_packages file")
-					aps = []
+			with requests.get(
+			    'https://raw.githubusercontent.com/Luois45/claim-free-steam-packages/update-package_list/package_list.txt'
+			) as f:
+				aps = f.text.split(',')
 			foundPackage = False
 			for ap in aps:
 				if app == ap:
