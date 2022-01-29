@@ -11,7 +11,6 @@ async def command(asf, cmd):
 
 
 async def main():
-	# The IPC initialization duration depends on the network
 	async with IPC(ipc='http://127.0.0.1:1242',
 	               password='YOUR IPC PASSWORD') as asf:
 		with open('package_list.txt', 'r') as f:
