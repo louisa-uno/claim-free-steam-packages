@@ -1,5 +1,10 @@
 # Claim free Steam  packages script
 
+[![DeepSource](https://deepsource.io/gh/Luois45/claim-free-steam-packages.svg/?label=active+issues&show_trend=true&token=eIo_r1Hx850IQIJEoUj3FaC5)](https://deepsource.io/gh/Luois45/claim-free-steam-packages/?ref=repository-badge)
+[![Github All Releases](https://img.shields.io/github/downloads/Luois45/claim-free-steam-packages/total.svg)]()
+[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
+[![built with: Python3](https://camo.githubusercontent.com/0d9fbff04202da688cc79c5ffe984bd171edf453b2e41e5e56e55202dd5bdbb2/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6275696c74253230776974682d507974686f6e332d7265642e737667)](https://www.python.org/)
+
 This script does automate the activation of free packages (games, movies, DLC, etc.) on Steam. It does register as much as possible free packages to you Steam account.
 The regularly updated database contains more than 15,000 packages that will be added and available in the library forever after activation.
 
