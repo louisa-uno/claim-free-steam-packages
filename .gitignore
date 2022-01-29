@@ -1,3 +1,6 @@
 
 activated_packages.txt
 config.json
+build
+dist
+activate_packages.spec
