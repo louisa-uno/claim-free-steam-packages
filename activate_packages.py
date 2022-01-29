@@ -9,13 +9,13 @@ from tqdm import tqdm
 async def main():
 	async with IPC(ipc='http://127.0.0.1:1242',
 	               password='YOUR IPC PASSWORD') as asf:
-		with open('package_list.txt', 'r') as f:
+		with requests.get(
+		    'https://raw.githubusercontent.com/Luois45/claim-free-steam-packages/update-package_list/package_list.txt'
+		) as f:
 			apps = f.read().split(',')
 		for app in tqdm(apps, desc='Activating licenses'):
 			try:
-				with requests.get(
-				    'https://raw.githubusercontent.com/Luois45/claim-free-steam-packages/update-package_list/package_list.txt'
-				) as f:
+				with open('activated_packages.txt', 'r') as f:
 					apps = f.text.split(',')
 			except FileNotFoundError:
 				with open('activated_packages.txt', 'w') as f:
