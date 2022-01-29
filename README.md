@@ -34,3 +34,13 @@ No, this is Steam built-in feature. This script does not violate service terms o
 **What's the point of this?**
 
 If some of this free packages will be removed or will be paid at future, you still be able to play them for free. A few games when installed give you +1 Games on your profile.
+
+## Support & Contributing
+Anyone is welcome to contribute. If you decide to get involved, please take a moment and check out the following:
+
+* [Bug reports](.github/ISSUE_TEMPLATE/bug_report.md)
+* [Feature requests](.github/ISSUE_TEMPLATE/feature_request.md)
+
+## License
+
+The code is under the [GPL-3.0 License](https://choosealicense.com/licenses/gpl-3.0/).
