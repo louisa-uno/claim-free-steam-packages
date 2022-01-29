@@ -34,4 +34,4 @@ We use GitHub issues to track public bugs. Report a bug by [opening a new issue]
 People *love* thorough bug reports. I'm not even kidding.
 
 ## License
-By contributing, you agree that your contributions will be licensed under its GPL-3.0 License.
+By contributing, you agree that your contributions will be licensed under its [GPL-3.0 License](https://choosealicense.com/licenses/gpl-3.0/).
