@@ -1,6 +1,7 @@
 import asyncio
 import time
 
+import requests
 from ASF import IPC
 from tqdm import tqdm
 
@@ -17,8 +18,10 @@ async def main():
 			apps = f.read().split(',')
 		for app in tqdm(apps, desc='Activating licenses'):
 			try:
-				with open('activated_packages.txt', 'r') as f:
-					aps = f.read().split(',')
+				with requests.get(
+				    'https://raw.githubusercontent.com/Luois45/claim-free-steam-packages/main/package_list.txt'
+				) as f:
+					apps = f.text.split(',')
 			except FileNotFoundError:
 				with open('activated_packages.txt', 'w') as f:
 					print("\nCreated activated_packages file")
@@ -42,13 +45,13 @@ async def main():
 							activatedPackage = True
 							with open('activated_packages.txt', 'a') as f:
 								f.write(app + ",")
-							time.sleep(20)
+							time.sleep(90)
 							break
 					else:
 						print(f'\nError: {resp.message}')
-					time.sleep(60)
+					time.sleep(90)
 				if not activatedPackage:
-					time.sleep(20)
+					time.sleep(90)
 
 
 loop = asyncio.get_event_loop()

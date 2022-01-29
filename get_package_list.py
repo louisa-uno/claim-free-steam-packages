@@ -1,11 +1,15 @@
 import contextlib
+import json
 from datetime import timedelta
 
 import joblib
 import requests
+from github import Github, InputGitAuthor
 from joblib import Parallel, delayed
 from requests_cache import CachedSession
 from tqdm import tqdm
+
+config = json.load(open("config.json"))
 
 
 @contextlib.contextmanager
@@ -84,6 +88,18 @@ def checkGame(game):
 	return None
 
 
+def push(path, message, content, branch):
+	author = InputGitAuthor("Luois45 - Update Steam package list",
+	                        "github@louis45.de")
+	contents = repo.get_contents(path, )
+	repo.update_file(contents.path,
+	                 message,
+	                 content,
+	                 contents.sha,
+	                 branch=branch,
+	                 author=author)
+
+
 res = requests.get(
     url='http://api.steampowered.com/ISteamApps/GetAppList/v2').json()
 
@@ -105,3 +121,14 @@ output = output[:-1]
 
 with open('package_list.txt', 'w') as f:
 	f.write(output)
+
+if len(output) > 10000:
+	repo = Github(
+	    config["git_token"]).get_repo("Luois45/claim-free-steam-packages")
+	push(path="package_list.txt",
+	     message="Updated Steam package list",
+	     content=output,
+	     branch="main")
+	print("\nPushed package list to GitHub repository")
+else:
+	print("\nSomething went wrong, please try again")
