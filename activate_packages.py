@@ -6,10 +6,6 @@ from ASF import IPC
 from tqdm import tqdm
 
 
-async def command(asf, cmd):
-	return await asf.Api.Command.post(body={'Command': cmd})
-
-
 async def main():
 	async with IPC(ipc='http://127.0.0.1:1242',
 	               password='YOUR IPC PASSWORD') as asf:
@@ -31,7 +27,7 @@ async def main():
 				activatedPackage = False
 				tries = 10
 				for i in range(tries):
-					resp = await command(asf, cmd)
+					resp = await asf.Api.Command.post(body={'Command': cmd})
 					if resp.success:
 						print("\n" + resp.result.replace("\r\n", ""))
 						successCodes = ["Items:", "Aktivierte IDs:"]
