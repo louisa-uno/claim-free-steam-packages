@@ -128,7 +128,7 @@ if len(output) > 10000:
 	push(path="package_list.txt",
 	     message="Updated Steam package list",
 	     content=output,
-	     branch="main")
+	     branch="update-package_list")
 	print("\nPushed package list to GitHub repository")
 else:
 	print("\nSomething went wrong, please try again")

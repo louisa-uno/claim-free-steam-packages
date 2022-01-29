@@ -19,7 +19,7 @@ async def main():
 		for app in tqdm(apps, desc='Activating licenses'):
 			try:
 				with requests.get(
-				    'https://raw.githubusercontent.com/Luois45/claim-free-steam-packages/main/package_list.txt'
+				    'https://raw.githubusercontent.com/Luois45/claim-free-steam-packages/update-package_list/package_list.txt'
 				) as f:
 					apps = f.text.split(',')
 			except FileNotFoundError:
