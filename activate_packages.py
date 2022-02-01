@@ -1,14 +1,26 @@
 import asyncio
 import time
-
+import logging
 import requests
 from ASF import IPC
 from tqdm import tqdm
+import json
+
+config = json.load(open("config.json"))
+
+logging.basicConfig(
+    filename="logging.txt",
+    filemode='w',
+    format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
+    datefmt='%H:%M:%S',
+    level=logging.DEBUG)
+
+log = logging.getLogger('urbanGUI')
 
 
 async def main():
-	async with IPC(ipc='http://127.0.0.1:1242',
-	               password='YOUR IPC PASSWORD') as asf:
+	async with IPC(ipc=config["IPC"]["host"],
+	               password=config["IPC"]["password"]) as asf:
 		with requests.get(
 		    'https://raw.githubusercontent.com/Luois45/claim-free-steam-packages/update-package_list/package_list.txt'
 		) as f:
@@ -19,22 +31,22 @@ async def main():
 					aps = f.read().split(',')
 			except FileNotFoundError:
 				with open('activated_packages.txt', 'w') as f:
-					print("\nCreated activated_packages file")
+					log.info("Created activated_packages file")
 					aps = []
 			foundPackage = False
 			for ap in aps:
 				if app == ap:
-					# print("\nPackage found in activated_packages")
+					log.debug("\nPackage found in activated_packages")
 					foundPackage = True
 			if not foundPackage:
-				# print("\nPackage not found in activated_packages")
+				log.debug("\nPackage not found in activated_packages")
 				cmd = "!addlicense app/" + app
 				activatedPackage = False
 				tries = 10
 				for i in range(tries):
 					resp = await asf.Api.Command.post(body={'Command': cmd})
 					if resp.success:
-						print("\n" + resp.result.replace("\r\n", ""))
+						log.info("\n" + resp.result.replace("\r\n", ""))
 						successCodes = ["Items:", "Aktivierte IDs:"]
 						if any(x in resp.result for x in successCodes):
 							activatedPackage = True
@@ -43,7 +55,7 @@ async def main():
 							time.sleep(90)
 							break
 					else:
-						print(f'\nError: {resp.message}')
+						log.info(f'\nError: {resp.message}')
 					time.sleep(90)
 				if not activatedPackage:
 					time.sleep(90)

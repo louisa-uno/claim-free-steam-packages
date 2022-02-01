@@ -1,3 +1,7 @@
 {
-    "git_token": "YOUR GIT TOKEN"
+    "IPC": {
+        "host": "http://localhost:1242",
+        "password": "your IPC password"
+    },
+    "git_token": "NOT needed if only used to activate packages"
 }

@@ -4,3 +4,4 @@ config.json
 build
 dist
 activate_packages.spec
+logging.txt
