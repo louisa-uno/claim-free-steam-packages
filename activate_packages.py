@@ -30,7 +30,8 @@ except FileNotFoundError:
 	    "git_token": "NOT needed if only used to activate packages"
 	}
 	config["IPC"]["host"] = input("Enter your ArchiSteamFarm host address: ")
-	config["IPC"]["host"] = input("Enter your ArchiSteamFarm host password: ")
+	config["IPC"]["password"] = input(
+	    "Enter your ArchiSteamFarm host password: ")
 	log.debug("Saving config file")
 	with open("config.json", "w") as f:
 		f.write(json.dumps(config))
