@@ -1,12 +1,12 @@
 import asyncio
-import time
+import json
 import logging
+import sys
+import time
+
 import requests
 from ASF import IPC
 from tqdm import tqdm
-import json
-
-config = json.load(open("config.json"))
 
 logging.basicConfig(
     filename="logging.txt",
@@ -16,6 +16,28 @@ logging.basicConfig(
     level=logging.DEBUG)
 
 log = logging.getLogger('urbanGUI')
+
+try:
+	config = json.load(open("config.json"))
+	log.debug("Found config file")
+except FileNotFoundError:
+	log.debug("Couldn't find config file")
+	config = {
+	    "IPC": {
+	        "host": "http://localhost:1242",
+	        "password": "your IPC password"
+	    },
+	    "git_token": "NOT needed if only used to activate packages"
+	}
+	config["IPC"]["host"] = input("Enter your ArchiSteamFarm host address: ")
+	config["IPC"]["host"] = input("Enter your ArchiSteamFarm host password: ")
+	log.debug("Saving config file")
+	with open("config.json", "w") as f:
+		f.write(json.dumps(config))
+	log.debug("Saved config file")
+except json.JSONDecodeError:
+	log.error("Couldn't decode config to json")
+	sys.exit()
 
 
 async def main():
