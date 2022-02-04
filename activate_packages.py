@@ -1,6 +1,7 @@
 import asyncio
 import json
 import logging
+import random
 import sys
 import time
 
@@ -41,47 +42,57 @@ except json.JSONDecodeError:
 	sys.exit()
 
 
+async def activatePackages(asf, tries):
+	with requests.get(
+	    'https://raw.githubusercontent.com/Luois45/claim-free-steam-packages/update-package_list/package_list.txt'
+	) as f:
+		apps = f.text.split(',')
+		random.shuffle(apps)
+	activatedPackage = False
+	for app in tqdm(apps, desc=f'{tries} attempt: Activating licenses'):
+		try:
+			with open('activated_packages.txt', 'r') as f:
+				aps = f.read().split(',')
+		except FileNotFoundError:
+			with open('activated_packages.txt', 'w') as f:
+				log.info("Created activated_packages file")
+				aps = []
+
+		foundPackage = False
+		for ap in aps:
+			if app == ap:
+				log.debug("\nPackage found in activated_packages")
+				foundPackage = True
+
+		if not foundPackage:
+			log.debug("\nPackage not found in activated_packages")
+			cmd = "!addlicense app/" + app
+
+			resp = await asf.Api.Command.post(body={'Command': cmd})
+
+			if resp.success:
+				log.info("\n" + resp.result.replace("\r\n", ""))
+				successCodes = ["Items:", "Aktivierte IDs:"]
+
+				if any(x in resp.result for x in successCodes):
+					activatedPackage = True
+					with open('activated_packages.txt', 'a') as f:
+						f.write(app + ",")
+			else:
+				log.info(f'\nError: {resp.message}')
+			time.sleep(90)
+	return activatedPackage
+
+
 async def main():
 	async with IPC(ipc=config["IPC"]["host"],
 	               password=config["IPC"]["password"]) as asf:
-		with requests.get(
-		    'https://raw.githubusercontent.com/Luois45/claim-free-steam-packages/update-package_list/package_list.txt'
-		) as f:
-			apps = f.text.split(',')
-		for app in tqdm(apps, desc='Activating licenses'):
-			try:
-				with open('activated_packages.txt', 'r') as f:
-					aps = f.read().split(',')
-			except FileNotFoundError:
-				with open('activated_packages.txt', 'w') as f:
-					log.info("Created activated_packages file")
-					aps = []
-			foundPackage = False
-			for ap in aps:
-				if app == ap:
-					log.debug("\nPackage found in activated_packages")
-					foundPackage = True
-			if not foundPackage:
-				log.debug("\nPackage not found in activated_packages")
-				cmd = "!addlicense app/" + app
-				activatedPackage = False
-				tries = 10
-				for i in range(tries):
-					resp = await asf.Api.Command.post(body={'Command': cmd})
-					if resp.success:
-						log.info("\n" + resp.result.replace("\r\n", ""))
-						successCodes = ["Items:", "Aktivierte IDs:"]
-						if any(x in resp.result for x in successCodes):
-							activatedPackage = True
-							with open('activated_packages.txt', 'a') as f:
-								f.write(app + ",")
-							time.sleep(90)
-							break
-					else:
-						log.info(f'\nError: {resp.message}')
-					time.sleep(90)
-				if not activatedPackage:
-					time.sleep(90)
+		tries = 0
+		while True:
+			tries += 1
+			activatedPackage = await activatePackages(asf, tries)
+			if activatedPackage:
+				break
 
 
 loop = asyncio.get_event_loop()
