@@ -61,17 +61,17 @@ async def activatePackages(asf, tries):
 		foundPackage = False
 		for ap in aps:
 			if app == ap:
-				log.debug("\nPackage found in activated_packages")
+				log.debug("Package found in activated_packages")
 				foundPackage = True
 
 		if not foundPackage:
-			log.debug("\nPackage not found in activated_packages")
+			log.debug("Package not found in activated_packages")
 			cmd = "!addlicense app/" + app
 
 			resp = await asf.Api.Command.post(body={'Command': cmd})
 
 			if resp.success:
-				log.info("\n" + resp.result.replace("\r\n", ""))
+				log.info(resp.result.replace("\r\n", ""))
 				successCodes = ["Items:", "Aktivierte IDs:"]
 
 				if any(x in resp.result for x in successCodes):
@@ -79,7 +79,7 @@ async def activatePackages(asf, tries):
 					with open('activated_packages.txt', 'a') as f:
 						f.write(app + ",")
 			else:
-				log.info(f'\nError: {resp.message}')
+				log.info(f'Error: {resp.message}')
 			time.sleep(90)
 	return activatedPackage
 
