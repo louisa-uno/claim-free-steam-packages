@@ -1,0 +1,28 @@
+name: Build executable with PyInstaller
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout the repository
+      uses: actions/checkout@v2
+    - name: Build default executable
+      uses: JackMcKew/pyinstaller-action-windows@main
+      with:
+        path: src
+        spec: activate_packages.spec
+    - name: Build headless executable
+      uses: JackMcKew/pyinstaller-action-windows@main
+      with:
+        path: src
+        spec: activate_packages-headless.spec
+    - name: Upload the executables
+      uses: actions/upload-artifact@v2
+      with:
+        name: name-of-artifact
+        path: src/dist
