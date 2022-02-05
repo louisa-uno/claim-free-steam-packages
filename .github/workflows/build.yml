@@ -6,23 +6,33 @@ on:
     branches: [ master ]
   workflow_dispatch:
 jobs:
-  build:
+  build-default:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout the repository
       uses: actions/checkout@v2
-    - name: Build default executable
+    - name: Build the executable
       uses: JackMcKew/pyinstaller-action-windows@main
       with:
         path: .
         spec: activate_packages.spec
-    - name: Build headless executable
+    - name: Upload the executable
+      uses: actions/upload-artifact@v2
+      with:
+        name: windows-executables
+        path: dist/windows/activate_packages.exe
+  build-headless:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout the repository
+      uses: actions/checkout@v2
+    - name: Build the executable
       uses: JackMcKew/pyinstaller-action-windows@main
       with:
         path: .
         spec: activate_packages-headless.spec
-    - name: Upload the executables
+    - name: Upload the executable
       uses: actions/upload-artifact@v2
       with:
         name: windows-executables
-        path: dist/windows/*
+        path: dist/windows/activate_packages-headless.exe
