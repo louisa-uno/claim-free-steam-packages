@@ -24,5 +24,5 @@ jobs:
     - name: Upload the executables
       uses: actions/upload-artifact@v2
       with:
-        name: name-of-artifact
-        path: dist
+        name: windows-executables
+        path: dist/
