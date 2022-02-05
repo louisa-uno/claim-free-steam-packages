@@ -14,15 +14,15 @@ jobs:
     - name: Build default executable
       uses: JackMcKew/pyinstaller-action-windows@main
       with:
-        path: src
+        path: .
         spec: activate_packages.spec
     - name: Build headless executable
       uses: JackMcKew/pyinstaller-action-windows@main
       with:
-        path: src
+        path: .
         spec: activate_packages-headless.spec
     - name: Upload the executables
       uses: actions/upload-artifact@v2
       with:
         name: name-of-artifact
-        path: src/dist
+        path: dist
