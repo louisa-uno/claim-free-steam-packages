@@ -53,55 +53,56 @@ async def activatePackages(asf, tries):
 	with requests.get(
 	    'https://raw.githubusercontent.com/Luois45/claim-free-steam-packages/update-package_list/package_list.txt'
 	) as f:
-		apps = f.text.split(',')
-		random.shuffle(apps)
+		package_list = f.text.split(',')
+
 	activatedPackage = False
+	try:
+		with open('activated_packages.txt', 'r') as f:
+			activated_packages = f.read().split(',')
+	except FileNotFoundError:
+		with open('activated_packages.txt', 'w') as f:
+			log.info("Created activated_packages file")
+			steamUsername = config["STEAM"]["username"]
+			if steamUsername != "" and steamUsername != "your STEAM username":
+				with requests.get(
+				    f"https://steamcommunity.com/id/{steamUsername}/games/?tab=all"
+				) as r:
+					html = r.text
+					regex = re.compile('"appid":(\d+),')
+					results = regex.findall(html)
+					log.info(
+					    f"Fetched {len(results)} packages to acitvated_packages.txt using Steam Username"
+					)
+					for result in results:
+						f.write(result + ",")
+		with open('activated_packages.txt', 'r') as f:
+			activated_packages = f.read().split(',')
+
+	apps = []
+	for app in package_list:
+		if not app in activated_packages:
+			apps.append(app)
+	random.shuffle(apps)
+	del activated_packages
+	del package_list
+
 	for app in tqdm(apps, desc=f'{tries} attempt: Activating licenses'):
-		try:
-			with open('activated_packages.txt', 'r') as f:
-				aps = f.read().split(',')
-		except FileNotFoundError:
-			with open('activated_packages.txt', 'w') as f:
-				log.info("Created activated_packages file")
-				steamUsername = config["STEAM"]["username"]
-				if steamUsername != "" and steamUsername != "your STEAM username":
-					with requests.get(
-					    f"https://steamcommunity.com/id/{steamUsername}/games/?tab=all"
-					) as r:
-						html = r.text
-						regex = re.compile('"appid":(\d+),')
-						results = regex.findall(html)
-						log.info(
-						    f"Fetched {len(results)} packages to acitvated_packages.txt using Steam Username"
-						)
-						for result in results:
-							f.write(result + ",")
-			with open('activated_packages.txt', 'r') as f:
-				aps = f.read().split(',')
 
-		foundPackage = False
-		for ap in aps:
-			if app == ap:
-				log.debug("Package found in activated_packages")
-				foundPackage = True
+		cmd = "!addlicense app/" + app
 
-		if not foundPackage:
-			log.debug("Package not found in activated_packages")
-			cmd = "!addlicense app/" + app
+		resp = await asf.Api.Command.post(body={'Command': cmd})
 
-			resp = await asf.Api.Command.post(body={'Command': cmd})
+		if resp.success:
+			log.info(resp.result.replace("\r\n", ""))
+			successCodes = ["Items:", "Aktivierte IDs:"]
 
-			if resp.success:
-				log.info(resp.result.replace("\r\n", ""))
-				successCodes = ["Items:", "Aktivierte IDs:"]
-
-				if any(x in resp.result for x in successCodes):
-					activatedPackage = True
-					with open('activated_packages.txt', 'a') as f:
-						f.write(app + ",")
-			else:
-				log.info(f'Error: {resp.message}')
-			time.sleep(90)
+			if any(x in resp.result for x in successCodes):
+				activatedPackage = True
+				with open('activated_packages.txt', 'a') as f:
+					f.write(app + ",")
+		else:
+			log.info(f'Error: {resp.message}')
+		time.sleep(90)
 	return activatedPackage
 
 
