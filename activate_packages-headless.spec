@@ -4,13 +4,12 @@
 block_cipher = None
 
 
-a = Analysis(['activate_packages.py'],
+a = Analysis(['activate_packages-headless.py'],
              pathex=[],
              binaries=[],
              datas=[],
              hiddenimports=[],
              hookspath=[],
-             hooksconfig={},
              runtime_hooks=[],
              excludes=[],
              win_no_prefer_redirects=False,
