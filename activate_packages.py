@@ -69,12 +69,16 @@ async def activatePackages(asf, tries):
 				) as r:
 					html = r.text
 					regex = re.compile('"appid":(\d+),')
-					results = regex.findall(html)
+					resultsList = regex.findall(html)
 					log.info(
-					    f"Fetched {len(results)} packages to acitvated_packages.txt using Steam Username"
+					    f"Fetched {len(resultsList)} packages to acitvated_packages.txt using Steam Username"
 					)
-					for result in results:
-						f.write(result + ",")
+					results = ""
+					for result in resultsList:
+						results += result + ","
+					f.write(results)
+					del results
+					del resultsList
 		with open('activated_packages.txt', 'r') as f:
 			activated_packages = f.read().split(',')
 
