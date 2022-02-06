@@ -22,7 +22,6 @@ console.log(games);
 430369,370157,367877,452385,122355,662406,
 ```
 8. Open the `activated_packages.txt` file in a text editor
-9. Delete the existing file content
-10. Paste console output (which is in your clipboard) into the file
-11. Save the file
-12. Execute `activate_packages` to activate packages
+9.  Paste console output (which is in your clipboard) at the end of the file
+10. Save the file
+11. Execute `activate_packages` to activate packages
