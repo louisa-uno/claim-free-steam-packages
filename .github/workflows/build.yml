@@ -12,7 +12,7 @@ jobs:
     - name: Build the executable
       uses: docker://cdrx/pyinstaller-windows:python3
       with:
-        args: -v "$(pwd):/src/" cdrx/pyinstaller-linux
+        args: -v "$(pwd):/" cdrx/pyinstaller-linux
     - name: Upload the executable
       uses: actions/upload-artifact@v2
       with:
