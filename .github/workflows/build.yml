@@ -10,11 +10,18 @@ jobs:
     - name: Checkout the repository
       uses: actions/checkout@v2
     - name: Build the executable
-      uses: docker://cdrx/pyinstaller-windows:python3
+      uses: JackMcKew/pyinstaller-action-windows@main
       with:
-        args: -v "$(pwd):/" cdrx/pyinstaller-linux
+        path: .
+        spec: activate_packages.spec
     - name: Upload the executable
       uses: actions/upload-artifact@v2
       with:
         name: executables
-        path: dist/windows/*
+        path: dist/windows/activate_packages.exe
+  build-headless:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout the repository
+      uses: actions/checkout@v2
+    - name: Build the executable
