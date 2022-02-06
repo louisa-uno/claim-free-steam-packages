@@ -27,3 +27,12 @@ jobs:
     - name: Checkout the repository
       uses: actions/checkout@v2
     - name: Build the executable
+      uses: JackMcKew/pyinstaller-action-windows@main
+      with:
+        path: .
+        spec: activate_packages-headless.spec
+    - name: Upload the executable
+      uses: actions/upload-artifact@v2
+      with:
+        name: executables
+        path: dist/windows/activate_packages-headless.exe
