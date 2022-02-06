@@ -3,5 +3,8 @@
         "host": "http://localhost:1242",
         "password": "your IPC password"
     },
+    "STEAM": {
+        "username": "your STEAM username"
+    },
     "git_token": "NOT needed if only used to activate packages"
 }

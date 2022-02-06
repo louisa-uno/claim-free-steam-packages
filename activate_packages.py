@@ -2,6 +2,7 @@ import asyncio
 import json
 import logging
 import random
+import re
 import sys
 import time
 
@@ -28,11 +29,17 @@ except FileNotFoundError:
 	        "host": "http://localhost:1242",
 	        "password": "your IPC password"
 	    },
+	    "STEAM": {
+	        "username": "your STEAM username"
+	    },
 	    "git_token": "NOT needed if only used to activate packages"
 	}
 	config["IPC"]["host"] = input("Enter your ArchiSteamFarm host address: ")
 	config["IPC"]["password"] = input(
 	    "Enter your ArchiSteamFarm host password: ")
+	config["STEAM"]["username"] = input(
+	    "Entering your steam username will download the IDs of the Steam games you own to skip them when activating packages.\nIf you don't want to enter your username just leave it empty and press enter.\nThe steam username is the username in the url when opening your steam profile.\nexample: https://steamcommunity.com/id/Louis_45/ → Louis_45 is the steam username\nYour Steam username:"
+	)
 	log.debug("Saving config file")
 	with open("config.json", "w") as f:
 		f.write(json.dumps(config))
@@ -56,7 +63,21 @@ async def activatePackages(asf, tries):
 		except FileNotFoundError:
 			with open('activated_packages.txt', 'w') as f:
 				log.info("Created activated_packages file")
-				aps = []
+				steamUsername = config["STEAM"]["username"]
+				if steamUsername != "" and steamUsername != "your STEAM username":
+					with requests.get(
+					    f"https://steamcommunity.com/id/{steamUsername}/games/?tab=all"
+					) as r:
+						html = r.text
+						regex = re.compile('"appid":(\d+),')
+						results = regex.findall(html)
+						log.info(
+						    f"Fetched {len(results)} packages to acitvated_packages.txt using Steam Username"
+						)
+						for result in results:
+							f.write(result + ",")
+			with open('activated_packages.txt', 'r') as f:
+				aps = f.read().split(',')
 
 		foundPackage = False
 		for ap in aps:
