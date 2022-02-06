@@ -1,9 +1,7 @@
 name: Build executable with PyInstaller
 on:
   push:
-    branches: [ main ]
   pull_request:
-    branches: [ main ]
   workflow_dispatch:
 jobs:
   build-default:
@@ -12,27 +10,11 @@ jobs:
     - name: Checkout the repository
       uses: actions/checkout@v2
     - name: Build the executable
-      uses: JackMcKew/pyinstaller-action-windows@main
+      uses: docker://cdrx/pyinstaller-windows:python3
       with:
-        path: .
-        spec: activate_packages.spec
+        args: -v "$(pwd):/src/" cdrx/pyinstaller-linux
     - name: Upload the executable
       uses: actions/upload-artifact@v2
       with:
         name: executables
-        path: dist/windows/activate_packages.exe
-  build-headless:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout the repository
-      uses: actions/checkout@v2
-    - name: Build the executable
-      uses: JackMcKew/pyinstaller-action-windows@main
-      with:
-        path: .
-        spec: activate_packages-headless.spec
-    - name: Upload the executable
-      uses: actions/upload-artifact@v2
-      with:
-        name: executables
-        path: dist/windows/activate_packages-headless.exe
+        path: dist/windows/*
