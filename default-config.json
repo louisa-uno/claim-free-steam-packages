@@ -6,5 +6,6 @@
     "STEAM": {
         "username": "your STEAM username"
     },
+	"repeat_hour_delay": "2",
     "git_token": "NOT needed if only used to activate packages"
 }
