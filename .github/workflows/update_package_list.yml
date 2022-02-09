@@ -1,7 +1,7 @@
 name: Update the package_list.txt file
 on:
   schedule:
-    - cron: '0 */2 * * *'
+    - cron: '0 * * * *'
   workflow_dispatch:
 jobs:
   build:
