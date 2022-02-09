@@ -32,6 +32,7 @@ except FileNotFoundError:
 	    "STEAM": {
 	        "username": "your STEAM username"
 	    },
+	    "repeat_hour_delay": "2",
 	    "git_token": "NOT needed if only used to activate packages"
 	}
 	config["IPC"]["host"] = input("Enter your ArchiSteamFarm host address: ")
@@ -54,6 +55,7 @@ async def activatePackages(asf, tries):
 	    'https://raw.githubusercontent.com/Luois45/claim-free-steam-packages/update-package_list/package_list.txt'
 	) as f:
 		package_list = f.text.split(',')
+		print("Downloaded repo package list with {} free packages.".format(len(package_list)))
 
 	activatedPackage = False
 	try:
@@ -87,26 +89,34 @@ async def activatePackages(asf, tries):
 		if not app in activated_packages:
 			apps.append(app)
 	random.shuffle(apps)
+
+	if len(apps) > 0:
+		print("Out of {} known free packages, {} are not already activated in your account. Beginning activation.".format(len(package_list),len(apps)))
+		for app in tqdm(apps, desc=f'{tries} attempt: Activating licenses'):
+
+			cmd = "!addlicense app/" + app
+
+			resp = await asf.Api.Command.post(body={'Command': cmd})
+
+			if resp.success:
+				log.info(resp.result.replace("\r\n", ""))
+				successCodes = ["Items:", "Aktivierte IDs:"]
+
+				if any(x in resp.result for x in successCodes):
+					activatedPackage = True
+					with open('activated_packages.txt', 'a') as f:
+						f.write(app + ",")
+			else:
+				log.info(f'Error: {resp.message}')
+			time.sleep(74)
+	else:
+		print("Out of {} known free packages, all are already activated. Skipping activation phase.".format(len(package_list)))
 	del activated_packages
 	del package_list
-
-	for app in tqdm(apps, desc=f'{tries} attempt: Activating licenses'):
-
-		cmd = "!addlicense app/" + app
-
-		resp = await asf.Api.Command.post(body={'Command': cmd})
-
-		if resp.success:
-			log.info(resp.result.replace("\r\n", ""))
-			successCodes = ["Items:", "Aktivierte IDs:"]
-
-			if any(x in resp.result for x in successCodes):
-				activatedPackage = True
-				with open('activated_packages.txt', 'a') as f:
-					f.write(app + ",")
-		else:
-			log.info(f'Error: {resp.message}')
-		time.sleep(90)
+	delay = int(config["repeat_hour_delay"]) * 3600
+	print('Waiting {} hours to check for new free packages.'.format(config["repeat_hour_delay"]))
+	for _ in tqdm(range(delay),desc="waiting..."):
+		time.sleep(1)
 	return activatedPackage
 
 
