@@ -1,15 +1,11 @@
 import contextlib
-import json
 from datetime import timedelta
 
 import joblib
 import requests
-from github import Github, InputGitAuthor
 from joblib import Parallel, delayed
 from requests_cache import CachedSession
 from tqdm import tqdm
-
-config = json.load(open("config.json"))
 
 
 @contextlib.contextmanager
@@ -46,10 +42,11 @@ def checkGame(game):
 		res = session.get(
 		    url='https://store.steampowered.com/api/appdetails/?appids=' +
 		    str(game) + '&cc=EE&l=english&v=1',
-		    proxies={
-		        'http': 'socks5h://p.webshare.io:9999',
-		        'https': 'socks5h://p.webshare.io:9999'
-		    })
+		    # proxies={
+		    #     'http': 'socks5h://p.webshare.io:9999',
+		    #     'https': 'socks5h://p.webshare.io:9999'
+		    # }
+		)
 	except Exception as e:
 		print('\nGot exception while trying to send request %s' % e)
 		return checkGame(game)
@@ -81,23 +78,11 @@ def checkGame(game):
 		return game
 
 	if res[str(game)]['data']['is_free'] is False:
-	    # print('\nGot paid app %d' % game)
-	    return None
+		# print('\nGot paid app %d' % game)
+		return None
 
 	print('Got faulty response %s' % res)
 	return None
-
-
-def push(path, message, content, branch):
-	author = InputGitAuthor("Luois45 - Update Steam package list",
-	                        "github@louis45.de")
-	contents = repo.get_contents(path, )
-	repo.update_file(contents.path,
-	                 message,
-	                 content,
-	                 contents.sha,
-	                 branch=branch,
-	                 author=author)
 
 
 res = requests.get(
@@ -111,7 +96,7 @@ print('Received %d apps' % len(apps))
 
 with tqdm_joblib(tqdm(desc='Requesting app statuses',
                       total=len(apps))) as progress_bar:
-	results = Parallel(n_jobs=60)(delayed(checkGame)(i) for i in apps)
+	results = Parallel(n_jobs=30)(delayed(checkGame)(i) for i in apps)
 
 output = ''
 for game in results:
@@ -123,12 +108,6 @@ with open('package_list.txt', 'w') as f:
 	f.write(output)
 
 if len(output) > 10000:
-	repo = Github(
-	    config["git_token"]).get_repo("Luois45/claim-free-steam-packages")
-	push(path="package_list.txt",
-	     message="Updated Steam package list",
-	     content=output,
-	     branch="update-package_list")
-	print("\nPushed package list to GitHub repository")
+	print("\nRan successfully")
 else:
-	print("\nSomething went wrong, please try again")
+	print("\nSomething went wrong")
