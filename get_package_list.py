@@ -42,11 +42,10 @@ def checkGame(game):
 		res = session.get(
 		    url='https://store.steampowered.com/api/appdetails/?appids=' +
 		    str(game) + '&cc=EE&l=english&v=1',
-		    # proxies={
-		    #     'http': 'socks5h://p.webshare.io:9999',
-		    #     'https': 'socks5h://p.webshare.io:9999'
-		    # }
-		)
+		    proxies={
+		        'http': 'socks5h://p.webshare.io:9999',
+		        'https': 'socks5h://p.webshare.io:9999'
+		    })
 	except Exception as e:
 		print('\nGot exception while trying to send request %s' % e)
 		return checkGame(game)
