@@ -32,4 +32,4 @@ jobs:
           git add -A
           git pull --rebase
           git fetch
-          git push origin HEAD:auto-update
+          git push -f origin HEAD:auto-update
