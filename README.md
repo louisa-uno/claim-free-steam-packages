@@ -50,6 +50,10 @@ Anyone is welcome to contribute. If you decide to get involved, please take a mo
 * [Bug reports](.github/ISSUE_TEMPLATE/bug_report.md)
 * [Feature requests](.github/ISSUE_TEMPLATE/feature_request.md)
 
+If you want to support this project, you can help financing the Proxies and the Server for the GitHub Actions runner.
+
+[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/louis45)
+
 ## License
 
 The code is under the [GPL-3.0 License](https://choosealicense.com/licenses/gpl-3.0/).
