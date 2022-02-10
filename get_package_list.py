@@ -1,5 +1,6 @@
 import contextlib
 from datetime import timedelta
+import sqlite3
 
 import joblib
 import requests
@@ -28,16 +29,22 @@ def tqdm_joblib(tqdm_object):
 
 
 def checkGame(game):
-	session = CachedSession(
-	    'steam_cache',
-	    use_cache_dir=True,
-	    cache_control=False,
-	    expire_after=timedelta(days=1),
-	    allowable_methods=['GET'],
-	    allowable_codes=[200],
-	    match_headers=False,
-	    stale_if_error=False,
-	)
+	try:
+		session = CachedSession(
+		    'steam_cache',
+		    use_cache_dir=True,
+		    cache_control=False,
+		    expire_after=timedelta(days=1),
+		    allowable_methods=['GET'],
+		    allowable_codes=[200],
+		    match_headers=False,
+		    stale_if_error=False,
+		)
+	except sqlite3.OperationalError as e:
+		print(
+		    '\nGot sqlite3.OperationalError while trying to send request %s' %
+		    e)
+		return checkGame(game)
 	try:
 		res = session.get(
 		    url='https://store.steampowered.com/api/appdetails/?appids=' +
