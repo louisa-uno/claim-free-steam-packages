@@ -1,6 +1,5 @@
 import contextlib
-import sqlite3
-import time
+import random
 from datetime import timedelta
 
 import joblib
@@ -92,6 +91,7 @@ res = requests.get(
 apps = []
 for app in res['applist']['apps']:
 	apps.append(app['appid'])
+random.shuffle(apps)
 
 print('Received %d apps' % len(apps))
 
