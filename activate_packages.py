@@ -51,7 +51,7 @@ except json.JSONDecodeError:
 
 async def activatePackages(asf, tries):
 	with requests.get(
-	    'https://raw.githubusercontent.com/Luois45/claim-free-steam-packages/update-package_list/package_list.txt'
+	    'https://raw.githubusercontent.com/Luois45/claim-free-steam-packages/auto-update/package_list.txt'
 	) as f:
 		package_list = f.text.split(',')
 
