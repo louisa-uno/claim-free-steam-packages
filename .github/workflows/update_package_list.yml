@@ -27,6 +27,8 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+          git fetch https://github.com/Luois45/claim-free-steam-packages.git HEAD:auto-update
           git add -A
           git commit -m "Updated Steam package list" -a
+          git fetch 
           git push origin HEAD:auto-update
