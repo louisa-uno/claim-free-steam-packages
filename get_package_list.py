@@ -1,6 +1,7 @@
 import contextlib
-from datetime import timedelta
 import sqlite3
+import time
+from datetime import timedelta
 
 import joblib
 import requests
@@ -41,6 +42,7 @@ def checkGame(game):
 		    stale_if_error=False,
 		)
 	except sqlite3.OperationalError as e:
+		time.sleep(1)
 		print(
 		    '\nGot sqlite3.OperationalError while trying to send request %s' %
 		    e)
