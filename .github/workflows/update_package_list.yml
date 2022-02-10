@@ -23,14 +23,10 @@ jobs:
           timeout_minutes: 60
           max_attempts: 20
           command: python get_package_list.py
-      - name: commit files
+      - name: commit files and push changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add -A
           git commit -m "Updated Steam package list" -a
-      - name: push changes
-        uses: ad-m/github-push-action@v0.6.0
-        with:
-          github_token: ${{ secrets.GIT_TOKEN }}
-          branch: auto-update  
+          git push origin HEAD:auto-update
