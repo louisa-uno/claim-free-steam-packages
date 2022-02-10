@@ -39,11 +39,11 @@ def checkGame(game, session):
 		    })
 	except Exception as e:
 		print('\nGot exception while trying to send request %s' % e)
-		return checkGame(game)
+		return checkGame(game, session)
 
 	if res.status_code != 200:
 		print('\nGot wrong status code %d' % res.status_code)
-		return checkGame(game)
+		return checkGame(game, session)
 
 	try:
 		res = res.json()
@@ -53,7 +53,7 @@ def checkGame(game, session):
 
 	if res is None:
 		print('\nGot invalid response %d' % game)
-		return checkGame(game)
+		return checkGame(game, session)
 
 	if res[str(game)]['success'] is False:
 		# print('\nGot invalid app %d' % game)
