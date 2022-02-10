@@ -28,23 +28,7 @@ def tqdm_joblib(tqdm_object):
 		tqdm_object.close()
 
 
-def checkGame(game):
-	try:
-		session = CachedSession(
-		    'steam_cache',
-		    use_cache_dir=True,
-		    cache_control=False,
-		    expire_after=timedelta(days=1),
-		    allowable_methods=['GET'],
-		    allowable_codes=[200],
-		    match_headers=False,
-		    stale_if_error=False,
-		)
-	except sqlite3.OperationalError as e:
-		print(
-		    '\nGot sqlite3.OperationalError while trying to send request %s' %
-		    e)
-		return checkGame(game)
+def checkGame(game, session):
 	try:
 		res = session.get(
 		    url='https://store.steampowered.com/api/appdetails/?appids=' +
@@ -100,10 +84,22 @@ for app in res['applist']['apps']:
 
 print('Received %d apps' % len(apps))
 
+session = CachedSession(
+    'steam_cache',
+    use_cache_dir=True,
+    cache_control=False,
+    expire_after=timedelta(days=1),
+    allowable_methods=['GET'],
+    allowable_codes=[200],
+    match_headers=False,
+    stale_if_error=False,
+)
+
 with tqdm_joblib(
         tqdm(desc='Requesting app statuses', total=len(apps),
              mininterval=10)) as progress_bar:
-	results = Parallel(n_jobs=60)(delayed(checkGame)(i) for i in apps)
+	results = Parallel(n_jobs=60)(delayed(checkGame)(game, session)
+	                              for game in apps)
 
 output = ''
 for game in results:
