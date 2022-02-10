@@ -33,7 +33,6 @@ def checkGame(game):
 	    'steam_cache',
 	    use_cache_dir=True,
 	    cache_control=False,
-	    expire_after=timedelta(days=1),
 	    allowable_methods=['GET'],
 	    allowable_codes=[200],
 	    match_headers=False,
@@ -46,7 +45,8 @@ def checkGame(game):
 		    proxies={
 		        'http': 'socks5h://p.webshare.io:9999',
 		        'https': 'socks5h://p.webshare.io:9999'
-		    })
+		    },
+		    expire_after=timedelta(hours=random.randint(20, 24)))
 	except Exception as e:
 		print('\nGot exception while trying to send request %s' % e)
 		return checkGame(game)
