@@ -20,6 +20,7 @@ jobs:
       - name: execute py script
         uses: nick-invision/retry@v2
         with:
+          timeout_minutes: 60
           max_attempts: 5
           command: python get_package_list.py
       - name: commit files
