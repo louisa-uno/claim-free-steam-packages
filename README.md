@@ -40,6 +40,10 @@ No, this is Steam built-in feature. This script does not violate service terms o
 
 If some of this free packages will be removed or will be paid at future, you still be able to play them for free. A few games when installed give you +1 Games on your profile.
 
+**How often does the package list get updated?**
+
+The package list gets updated every hour via GitHub Actions. This does have the disadvantage that it costs me something (Proxy & Server provider) but I'll try to keep it up.
+
 ## Support & Contributing
 Anyone is welcome to contribute. If you decide to get involved, please take a moment and check out the following:
 
