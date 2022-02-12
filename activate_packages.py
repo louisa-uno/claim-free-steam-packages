@@ -114,7 +114,7 @@ async def activatePackages(asf, tries):
 		print("Out of {} known free packages, all are already activated. Skipping activation phase.".format(len(package_list)))
 	del activated_packages
 	del package_list
-	delay = int(config["repeat_hour_delay"]) * 10
+	delay = int(config["repeat_hour_delay"]) * 3600
 	print('Waiting {} hours to check for new free packages.'.format(config["repeat_hour_delay"]))
 	for _ in tqdm(range(delay),desc="waiting..."):
 		time.sleep(1)
