@@ -2,6 +2,7 @@
 
 [![Build executable with PyInstaller](https://github.com/Luois45/claim-free-steam-packages/actions/workflows/build.yml/badge.svg)](https://github.com/Luois45/claim-free-steam-packages/actions/workflows/build.yml)
 [![Update the package_list.txt file](https://github.com/Luois45/claim-free-steam-packages/actions/workflows/update_package_list.yml/badge.svg)](https://github.com/Luois45/claim-free-steam-packages/actions/workflows/update_package_list.yml)
+[![Last package list update](https://img.shields.io/github/last-commit/Luois45/claim-free-steam-packages/auto-update?label=Last%20package%20list%20update)](https://github.com/Luois45/claim-free-steam-packages/actions/workflows/update_package_list.yml)
 
 [![DeepSource](https://deepsource.io/gh/Luois45/claim-free-steam-packages.svg/?label=active+issues&show_trend=true&token=eIo_r1Hx850IQIJEoUj3FaC5)](https://deepsource.io/gh/Luois45/claim-free-steam-packages/?ref=repository-badge)
 [![Github All Releases](https://img.shields.io/github/downloads/Luois45/claim-free-steam-packages/total.svg)](https://tooomm.github.io/github-release-stats/?username=Luois45&repository=claim-free-steam-packages)
