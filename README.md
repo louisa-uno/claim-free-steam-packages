@@ -45,6 +45,14 @@ If some of this free packages will be removed or will be paid at future, you sti
 
 The package list gets updated every hour via GitHub Actions. This does have the disadvantage that it costs me something (Proxy & Server provider) but I'll try to keep it up.
 
+**How do I choose the steam accounts the script should use?**
+
+The script will use on default all steam account which are connected to your ASF installation. It is possible to configure it in the `config.json` by changing the IPC → account to the name of your accounts inside of ASF.
+
+Default: `"accounts": ["ASF"]`
+
+Example for configuration: `"accounts": ["Louis45", "Louis_45"]`
+
 ## Support & Contributing
 Anyone is welcome to contribute. If you decide to get involved, please take a moment and check out the following:
 
