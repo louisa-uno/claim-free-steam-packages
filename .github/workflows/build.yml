@@ -6,7 +6,7 @@ on:
     branches: [ main ]
   workflow_dispatch:
 jobs:
-  build-default:
+  build:
     runs-on: windows-latest
     steps:
     - name: Checkout the repository
@@ -19,15 +19,10 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-    - name: Build the executable
+    - name: Build the executables
       run: cmd.exe /c 'build'
-    - name: Upload the executable
+    - name: Upload the executables
       uses: actions/upload-artifact@v2
       with:
         name: executables
-        path: dist/windows/activate_packages.exe
-    - name: Upload the executable
-      uses: actions/upload-artifact@v2
-      with:
-        name: executables
-        path: dist/windows/*.exe
+        path: dist/*.exe
