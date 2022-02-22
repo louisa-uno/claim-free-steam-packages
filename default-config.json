@@ -1,7 +1,10 @@
 {
     "IPC": {
         "host": "http://localhost:1242",
-        "password": "your IPC password"
+        "password": "your IPC password",
+        "accounts": [
+            "ASF"
+        ]
     },
     "STEAM": {
         "username": "your STEAM username"
