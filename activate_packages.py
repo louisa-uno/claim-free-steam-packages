@@ -27,13 +27,13 @@ except FileNotFoundError:
 	config = {
 	    "IPC": {
 	        "host": "http://localhost:1242",
-	        "password": "your IPC password"
+	        "password": "your IPC password",
+	        "accounts": ["ASF"]
 	    },
 	    "STEAM": {
 	        "username": "your STEAM username"
 	    },
-	    "repeat_hour_delay": 2,
-	    "git_token": "NOT needed if only used to activate packages"
+	    "repeat_hour_delay": "2"
 	}
 	config["IPC"]["host"] = input("Enter your ArchiSteamFarm host address: ")
 	config["IPC"]["password"] = input(
@@ -55,7 +55,8 @@ async def activatePackages(asf, tries):
 	    'https://raw.githubusercontent.com/Luois45/claim-free-steam-packages/auto-update/package_list.txt'
 	) as f:
 		package_list = f.text.split(',')
-		print("Downloaded repo package list with {} free packages.".format(len(package_list)))
+		print("Downloaded repo package list with {} free packages.".format(
+		    len(package_list)))
 
 	activatedPackage = False
 	try:
@@ -91,12 +92,14 @@ async def activatePackages(asf, tries):
 	random.shuffle(apps)
 
 	if len(apps) > 0:
-		print("Out of {} known free packages, {} are not already activated in your account. Beginning activation.".format(len(package_list),len(apps)))
-		
+		print(
+		    "Out of {} known free packages, {} are not already activated in your account. Beginning activation."
+		    .format(len(package_list), len(apps)))
+
 		for app in tqdm(apps, desc=f'{tries} attempt: Activating licenses'):
 
-			cmd = "!addlicense app/" + app
-
+			cmd = "!addlicense " + ",".join(
+			    config["IPC"]["accounts"]) + " app/" + app
 			resp = await asf.Api.Command.post(body={'Command': cmd})
 
 			if resp.success:
@@ -111,12 +114,15 @@ async def activatePackages(asf, tries):
 				log.info(f'Error: {resp.message}')
 			time.sleep(74)
 	else:
-		print("Out of {} known free packages, all are already activated. Skipping activation phase.".format(len(package_list)))
+		print(
+		    "Out of {} known free packages, all are already activated. Skipping activation phase."
+		    .format(len(package_list)))
 	del activated_packages
 	del package_list
 	delay = int(config["repeat_hour_delay"]) * 3600
-	print('Waiting {} hours to check for new free packages.'.format(config["repeat_hour_delay"]))
-	for _ in tqdm(range(delay),desc="waiting..."):
+	print('Waiting {} hours to check for new free packages.'.format(
+	    config["repeat_hour_delay"]))
+	for _ in tqdm(range(delay), desc="waiting..."):
 		time.sleep(1)
 	return activatedPackage
 
