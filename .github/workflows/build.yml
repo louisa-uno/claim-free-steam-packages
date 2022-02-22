@@ -18,9 +18,9 @@ jobs:
     - name: Install python packages
       run: |
         python -m pip install --upgrade pip
-        pip install pyinstaller
+        pip install -r requirements.txt
     - name: Build the executable
-      run: build
+      run: cmd.exe /c 'build'
     - name: Upload the executable
       uses: actions/upload-artifact@v2
       with:
