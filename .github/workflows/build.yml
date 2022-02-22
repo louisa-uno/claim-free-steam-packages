@@ -7,32 +7,27 @@ on:
   workflow_dispatch:
 jobs:
   build-default:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
     - name: Checkout the repository
       uses: actions/checkout@v2
-    - name: Build the executable
-      uses: JackMcKew/pyinstaller-action-windows@main
+    - name: Setup python
+      uses: actions/setup-python@v2
       with:
-        path: .
-        spec: activate_packages.spec
+        python-version: '3.8'
+    - name: Install python packages
+      run: |
+        python -m pip install --upgrade pip
+        pip install pyinstaller
+    - name: Build the executable
+      run: build
     - name: Upload the executable
       uses: actions/upload-artifact@v2
       with:
         name: executables
         path: dist/windows/activate_packages.exe
-  build-headless:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout the repository
-      uses: actions/checkout@v2
-    - name: Build the executable
-      uses: JackMcKew/pyinstaller-action-windows@main
-      with:
-        path: .
-        spec: activate_packages-headless.spec
     - name: Upload the executable
       uses: actions/upload-artifact@v2
       with:
         name: executables
-        path: dist/windows/activate_packages-headless.exe
+        path: dist/windows/*.exe
