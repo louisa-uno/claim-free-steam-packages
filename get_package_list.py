@@ -1,5 +1,6 @@
 import contextlib
 import random
+import sys
 from datetime import timedelta
 
 import joblib
@@ -113,3 +114,4 @@ if len(output) > 10000:
 	print("\nRan successfully")
 else:
 	print("\nSomething went wrong")
+	sys.exit(1)
