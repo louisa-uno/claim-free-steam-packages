@@ -99,7 +99,7 @@ print('Received %d apps' % len(apps))
 with tqdm_joblib(
         tqdm(desc='Requesting app statuses', total=len(apps),
              mininterval=10)) as progress_bar:
-	results = Parallel(n_jobs=30)(delayed(checkGame)(i) for i in apps)
+	results = Parallel(n_jobs=50)(delayed(checkGame)(i) for i in apps)
 
 output = ''
 for game in results:
