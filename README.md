@@ -25,7 +25,7 @@ The regularly updated database contains more than 15,000 packages that will be a
 ## FAQ
 **Why it take so long to complete the script?**
 
-The Steam API has limitation for only 50 packages activation per one hour.
+The Steam API is limited to 50 package activations per hour.
 
 Have a look into these [instructions](docs/instructions-for-users-with-many-packages.md) if you do already own many steam packages.
  
