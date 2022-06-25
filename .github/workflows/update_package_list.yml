@@ -22,7 +22,7 @@ jobs:
         with:
           timeout_minutes: 60
           max_attempts: 30
-          retry_wait_seconds: 15
+          retry_wait_seconds: 60
           command: python get_package_list.py
       - name: commit files and push changes
         run: |
