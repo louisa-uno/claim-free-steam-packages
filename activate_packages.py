@@ -19,11 +19,22 @@ logging.basicConfig(
 
 log = logging.getLogger('urbanGUI')
 
-try:
-	config = json.load(open("config.json"))
-	log.debug("Found config file")
-except FileNotFoundError:
-	log.debug("Couldn't find config file")
+
+def loadConfig():
+	try:
+		with open('config.json', 'r') as f:
+			config = json.load(f)
+			return config
+	except FileNotFoundError:
+		return createConfig()
+	except json.decoder.JSONDecodeError:
+		print(
+		    "Config file is not valid JSON. Please delete the config file and run the script again."
+		)
+		sys.exit(0)
+
+
+def createConfig():
 	config = {
 	    "IPC": {
 	        "host": "http://localhost:1242",
@@ -45,9 +56,10 @@ except FileNotFoundError:
 	with open("config.json", "w") as f:
 		f.write(json.dumps(config))
 	log.debug("Saved config file")
-except json.JSONDecodeError:
-	log.error("Couldn't decode config to json")
-	sys.exit()
+	return config
+
+
+config = loadConfig()
 
 
 async def activatePackages(asf, tries):
