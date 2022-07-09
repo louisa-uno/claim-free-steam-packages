@@ -5,6 +5,7 @@ import random
 import re
 import sys
 import time
+import getpass
 
 import requests
 from ASF import IPC
@@ -47,7 +48,7 @@ def createConfig():
 	    "repeat_hour_delay": "2"
 	}
 	config["IPC"]["host"] = input("Enter your ArchiSteamFarm host address: ")
-	config["IPC"]["password"] = input(
+	config["IPC"]["password"] = getpass.getpass(
 	    "Enter your ArchiSteamFarm host password: ")
 	config["STEAM"]["username"] = input(
 	    "Entering your steam username will download the IDs of the Steam games you own to skip them when activating packages.\nIf you don't want to enter your username just leave it empty and press enter.\nThe steam username is the username in the url when opening your steam profile.\nexample: https://steamcommunity.com/id/Louis_45/ → Louis_45 is the steam username\nYour Steam username:"
