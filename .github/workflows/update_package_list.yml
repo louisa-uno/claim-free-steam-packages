@@ -20,9 +20,9 @@ jobs:
       - name: execute py script
         uses: nick-invision/retry@v2
         with:
-          timeout_minutes: 60
-          max_attempts: 30
-          retry_wait_seconds: 60
+          timeout_minutes: 120
+          max_attempts: 60
+          retry_wait_seconds: 180
           command: python get_package_list.py
       - name: commit files and push changes
         run: |
