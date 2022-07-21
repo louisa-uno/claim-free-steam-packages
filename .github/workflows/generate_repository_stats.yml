@@ -12,4 +12,4 @@ jobs:
         uses: jgehrcke/github-repo-stats@RELEASE
         with:
           repository: Luois45/claim-free-steam-packages
-          ghtoken: ${{ secrets.ghrs_github_api_token }}
+          ghtoken: ${{ github.token }}
