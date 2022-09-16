@@ -1,5 +1,5 @@
 ASF_IPC==2.1.0
-joblib==1.1.0
+joblib==1.2.0
 requests-cache==0.9.6
 tqdm==4.64.1
 requests[socks]
