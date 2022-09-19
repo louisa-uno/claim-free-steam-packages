@@ -1,5 +1,5 @@
 % Statistics for Luois45/claim-free-steam-packages
-% Generated for [Luois45/claim-free-steam-packages](https://github.com/Luois45/claim-free-steam-packages) with [jgehrcke/github-repo-stats](https://github.com/jgehrcke/github-repo-stats) at 2022-09-19 20:29 UTC.
+% Generated for [Luois45/claim-free-steam-packages](https://github.com/Luois45/claim-free-steam-packages) with [jgehrcke/github-repo-stats](https://github.com/jgehrcke/github-repo-stats) at 2022-09-19 21:25 UTC.
 
 
 ## Views
@@ -90,7 +90,7 @@ Top 15 referrers: 01: `github.com`, 02: `Google`, 03: `Bing`, 04: `DuckDuckGo`, 
 
 <div id="chart_paths_top_n_alltime" class="full-width-chart"></div>
 
-Top 15 paths: 01: `/`, 02: `/releases/tag/v1.4.3`, 03: `/issues`, 04: `/releases/tag/v1.4.2`, 05: `/blob/main/docs/instructions-for-users-with-many-packages.md`, 06: `/actions`, 07: `/releases/latest`, 08: `/blob/main/.github/workflows/update_package_list.yml`, 09: `/tree/main/.github`, 10: `/pulls`, 11: `/tree/main/.github/workflows`, 12: `/pull/42`, 13: `/releases`, 14: `/blob/main/activate_packages.py`, 15: `/blob/main/docker-compose.yml`
+Top 15 paths: 01: `/`, 02: `/releases/tag/v1.4.3`, 03: `/issues`, 04: `/releases/tag/v1.4.2`, 05: `/blob/main/docs/instructions-for-users-with-many-packages.md`, 06: `/actions`, 07: `/releases/latest`, 08: `/tree/main/.github/workflows`, 09: `/blob/main/.github/workflows/update_package_list.yml`, 10: `/blob/main/activate_packages.py`, 11: `/pulls`, 12: `/pull/42`, 13: `/tree/main/.github`, 14: `/releases`, 15: `/blob/main/docker-compose.yml`
 
 
 <script type="text/javascript">
