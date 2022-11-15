@@ -21,13 +21,13 @@ logging.basicConfig(
 log = logging.getLogger("urbanGUI")
 
 
-def loadConfig():
+def load_config():
     try:
-        with open("config.json") as f:
-            config = json.load(f)
-            return config
+        with open("config.json", encoding="utf8") as file:
+            loaded_config = json.load(file)
+            return loaded_config
     except FileNotFoundError:
-        return createConfig()
+        return create_config()
     except json.decoder.JSONDecodeError:
         print(
             "Config file is not valid JSON. Please delete the config file and run the script again.",
@@ -35,8 +35,17 @@ def loadConfig():
         sys.exit(0)
 
 
-def createConfig():
-    config = {
+def get_username_input_sentence():
+    sentence = "Enter your steam username to download IDs of owned games to skip them when activating packages."
+    sentence += "\nIf you don't want to enter your username just leave it empty and press enter."
+    sentence += "\nThe steam username is the username in the url when opening your steam profile."
+    sentence += "\nexample: https://steamcommunity.com/id/Louis_45/ → Louis_45 is the steam username"
+    sentence += "\nYour Steam username:"
+    return sentence
+
+
+def create_config():
+    my_config = {
         "IPC": {
             "host": "http://localhost:1242",
             "password": "your IPC password",
@@ -45,71 +54,62 @@ def createConfig():
         "STEAM": {"username": "your STEAM username"},
         "repeat_hour_delay": "2",
     }
-    config["IPC"]["host"] = input("Enter your ArchiSteamFarm host address: ")
-    config["IPC"]["password"] = input("Enter your ArchiSteamFarm host password: ")
-    config["STEAM"]["username"] = input(
-        "Entering your steam username will download the IDs of the Steam games you own to skip them when activating packages.\nIf you don't want to enter your username just leave it empty and press enter.\nThe steam username is the username in the url when opening your steam profile.\nexample: https://steamcommunity.com/id/Louis_45/ → Louis_45 is the steam username\nYour Steam username:",
-    )
+    my_config["IPC"]["host"] = input("Enter your ArchiSteamFarm host address: ")
+    my_config["IPC"]["password"] = input("Enter your ArchiSteamFarm host password: ")
+    my_config["STEAM"]["username"] = input(get_username_input_sentence())
     log.debug("Saving config file")
-    with open("config.json", "w") as f:
-        f.write(json.dumps(config))
+    with open("config.json", "w", encoding="utf8") as file:
+        file.write(json.dumps(my_config))
     log.debug("Saved config file")
-    return config
+    return my_config
 
 
-config = loadConfig()
+config = load_config()
 
 
-async def activatePackages(asf, tries):
-    with requests.get(
-        "https://raw.githubusercontent.com/Luois45/claim-free-steam-packages/auto-update/package_list.txt",
-    ) as f:
-        package_list = f.text.split(",")
-        print(
-            "Downloaded repo package list with {} free packages.".format(
-                len(package_list),
-            ),
-        )
+async def activate_packages(asf, tries):
+    url = "https://raw.githubusercontent.com/Luois45/claim-free-steam-packages/auto-update/package_list.txt"
+    with requests.get(url) as file:
+        package_list = file.text.split(",")
+        print(f"Downloaded repo package list with {len(package_list)} free packages.")
 
-    activatedPackage = False
+    activated_package = False
     try:
-        with open("activated_packages.txt") as f:
-            activated_packages = f.read().split(",")
+        with open("activated_packages.txt", encoding="utf8") as file:
+            activated_packages = file.read().split(",")
     except FileNotFoundError:
-        with open("activated_packages.txt", "w") as f:
+        with open("activated_packages.txt", "w", encoding="utf8") as file:
             log.info("Created activated_packages file")
-            steamUsername = config["STEAM"]["username"]
-            if steamUsername != "" and steamUsername != "your STEAM username":
+            steam_username = config["STEAM"]["username"]
+            if steam_username not in {"", "your STEAM username"}:
                 with requests.get(
-                    f"https://steamcommunity.com/id/{steamUsername}/games/?tab=all",
-                ) as r:
-                    html = r.text
+                    f"https://steamcommunity.com/id/{steam_username}/games/?tab=all",
+                ) as response:
+                    html = response.text
                     regex = re.compile(r'"appid":(\d+),')
-                    resultsList = regex.findall(html)
+                    results_list = regex.findall(html)
                     log.info(
-                        f"Fetched {len(resultsList)} packages to acitvated_packages.txt using Steam Username",
+                        "Fetched %s packages to activated_packages.txt using Steam Username",
+                        len(results_list),
                     )
                     results = ""
-                    for result in resultsList:
+                    for result in results_list:
                         results += result + ","
-                    f.write(results)
+                    file.write(results)
                     del results
-                    del resultsList
-        with open("activated_packages.txt") as f:
-            activated_packages = f.read().split(",")
+                    del results_list
+        with open("activated_packages.txt", encoding="utf8") as file:
+            activated_packages = file.read().split(",")
 
     apps = []
     for app in package_list:
-        if not app in activated_packages:
+        if app not in activated_packages:
             apps.append(app)
     random.shuffle(apps)
 
     if len(apps) > 0:
         print(
-            "Out of {} known free packages, {} are not already activated in your account. Beginning activation.".format(
-                len(package_list),
-                len(apps),
-            ),
+            f"Out of {len(package_list)} known free packages, {len(apps)} are not owned. Beginning activation.",
         )
 
         for app in tqdm(apps, desc=f"{tries} attempt: Activating licenses"):
@@ -119,32 +119,28 @@ async def activatePackages(asf, tries):
 
             if resp.success:
                 log.info(resp.result.replace("\r\n", ""))
-                successCodes = ["Items:", "Aktivierte IDs:"]
+                success_codes = ["Items:", "Aktivierte IDs:"]
 
-                if any(x in resp.result for x in successCodes):
-                    activatedPackage = True
-                    with open("activated_packages.txt", "a") as f:
-                        f.write(app + ",")
+                if any(x in resp.result for x in success_codes):
+                    activated_package = True
+                    with open("activated_packages.txt", "a", encoding="utf8") as file:
+                        file.write(app + ",")
             else:
-                log.info(f"Error: {resp.message}")
+                log.info("Error: %s", resp.message)
             time.sleep(74)
     else:
         print(
-            "Out of {} known free packages, all are already activated. Skipping activation phase.".format(
-                len(package_list),
-            ),
+            f"Out of {len(package_list)} known free packages, all are already activated. Skipping activation phase.",
         )
     del activated_packages
     del package_list
     delay = int(config["repeat_hour_delay"]) * 3600
     print(
-        "Waiting {} hours to check for new free packages.".format(
-            config["repeat_hour_delay"],
-        ),
+        f"Waiting {config['repeat_hour_delay']} hours to check for new free packages.",
     )
     for _ in tqdm(range(delay), desc="waiting..."):
         time.sleep(1)
-    return activatedPackage
+    return activated_package
 
 
 async def main():
@@ -155,11 +151,11 @@ async def main():
         tries = 0
         while True:
             tries += 1
-            activatedPackage = await activatePackages(asf, tries)
-            if activatedPackage:
+            activated_package = await activate_packages(asf, tries)
+            if activated_package:
                 break
 
 
 loop = asyncio.get_event_loop()
-output = loop.run_until_complete(main())
+loop.run_until_complete(main())
 loop.close()
