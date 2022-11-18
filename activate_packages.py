@@ -11,6 +11,7 @@ from ASF import IPC
 from tqdm import tqdm
 
 INPUT_SEPARATOR = ','
+OUTPUT_SEPARATOR = ','
 
 logging.basicConfig(
     filename="logging.txt",
@@ -75,7 +76,7 @@ async def activatePackages(asf, tries):
 	activatedPackage = False
 	try:
 		with open('activated_packages.txt', 'r') as f:
-			activated_packages = f.read().split(',')
+			activated_packages = f.read().split(OUTPUT_SEPARATOR)
 	except FileNotFoundError:
 		with open('activated_packages.txt', 'w') as f:
 			log.info("Created activated_packages file")
@@ -92,12 +93,12 @@ async def activatePackages(asf, tries):
 					)
 					results = ""
 					for result in resultsList:
-						results += result + ","
+						results += result + OUTPUT_SEPARATOR
 					f.write(results)
 					del results
 					del resultsList
 		with open('activated_packages.txt', 'r') as f:
-			activated_packages = f.read().split(',')
+			activated_packages = f.read().split(OUTPUT_SEPARATOR)
 
 	apps = []
 	for app in package_list:
@@ -123,7 +124,7 @@ async def activatePackages(asf, tries):
 				if any(x in resp.result for x in successCodes):
 					activatedPackage = True
 					with open('activated_packages.txt', 'a') as f:
-						f.write(app + ",")
+						f.write(app + OUTPUT_SEPARATOR)
 			else:
 				log.info(f'Error: {resp.message}')
 			time.sleep(74)
