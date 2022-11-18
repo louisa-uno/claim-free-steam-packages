@@ -10,6 +10,8 @@ import requests
 from ASF import IPC
 from tqdm import tqdm
 
+INPUT_SEPARATOR = ','
+
 logging.basicConfig(
     filename="logging.txt",
     filemode='w',
@@ -66,7 +68,7 @@ async def activatePackages(asf, tries):
 	with requests.get(
 	    'https://raw.githubusercontent.com/Luois45/claim-free-steam-packages/auto-update/package_list.txt'
 	) as f:
-		package_list = f.text.split(',')
+		package_list = f.text.split(INPUT_SEPARATOR)
 		print("Downloaded repo package list with {} free packages.".format(
 		    len(package_list)))
 
