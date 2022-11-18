@@ -10,6 +10,7 @@ import requests
 from ASF import IPC
 from tqdm import tqdm
 
+ASF_SEPARATOR = ','
 INPUT_SEPARATOR = ','
 OUTPUT_SEPARATOR = ','
 
@@ -113,7 +114,7 @@ async def activatePackages(asf, tries):
 
 		for app in tqdm(apps, desc=f'{tries} attempt: Activating licenses'):
 
-			cmd = "!addlicense " + ",".join(
+			cmd = "!addlicense " + ASF_SEPARATOR.join(
 			    config["IPC"]["accounts"]) + " app/" + app
 			resp = await asf.Api.Command.post(body={'Command': cmd})
 
