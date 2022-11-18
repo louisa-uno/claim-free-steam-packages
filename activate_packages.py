@@ -12,6 +12,7 @@ from tqdm import tqdm
 
 INPUT_SEPARATOR = ','
 OUTPUT_SEPARATOR = ','
+ASF_SEPARATOR = ','
 
 logging.basicConfig(
     filename="logging.txt",
@@ -117,7 +118,7 @@ async def activate_packages(asf, tries):
 
         for app in tqdm(apps, desc=f"{tries} attempt: Activating licenses"):
 
-            cmd = "!addlicense " + ",".join(config["IPC"]["accounts"]) + " app/" + app
+            cmd = "!addlicense " + ASF_SEPARATOR.join(config["IPC"]["accounts"]) + " app/" + app
             resp = await asf.Api.Command.post(body={"Command": cmd})
 
             if resp.success:
