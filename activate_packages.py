@@ -103,7 +103,7 @@ async def activatePackages(asf, tries):
 
 	apps = []
 	for app in package_list:
-		if not app in activated_packages:
+		if app not in activated_packages:
 			apps.append(app)
 	random.shuffle(apps)
 
