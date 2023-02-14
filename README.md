@@ -1,5 +1,6 @@
 # Claim free Steam  packages script
 
+![DNSBlocklists Actions](https://api.meercode.io/badge/Luois45/claim-free-steam-packages?type=ci-score&lastDay=14)
 [![Build executable with PyInstaller](https://github.com/Luois45/claim-free-steam-packages/actions/workflows/build.yml/badge.svg)](https://github.com/Luois45/claim-free-steam-packages/actions/workflows/build.yml)
 [![Update the package_list.txt file](https://github.com/Luois45/claim-free-steam-packages/actions/workflows/update_package_list.yml/badge.svg)](https://github.com/Luois45/claim-free-steam-packages/actions/workflows/update_package_list.yml)
 [![Last package list update](https://img.shields.io/github/last-commit/Luois45/claim-free-steam-packages/auto-update?label=Last%20package%20list%20update)](https://github.com/Luois45/claim-free-steam-packages/actions/workflows/update_package_list.yml)
