@@ -10,20 +10,20 @@ jobs:
       - name: checkout repo content
         uses: actions/checkout@v2
       - name: setup python
-        run: sudo apt-get install -y python3.10
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
       - name: install python packages
         run: |
-          wget https://bootstrap.pypa.io/get-pip.py
-          python3 get-pip.py
-          python3 -m pip install --upgrade pip
-          pip3 install -r requirements.txt
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
       - name: execute py script
         uses: nick-invision/retry@v2
         with:
           timeout_minutes: 120
           max_attempts: 60
           retry_wait_seconds: 300
-          command: python3 get_package_list.py
+          command: python get_package_list.py
       - name: commit files and push changes
         run: |
           git config --local user.email "action@github.com"
