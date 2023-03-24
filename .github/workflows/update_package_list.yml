@@ -28,8 +28,8 @@ jobs:
           command: python get_package_list.py
       - name: commit files and push changes
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          git config user.email "action@github.com"
+          git config user.name "GitHub Action"
           git fetch https://github.com/Luois45/claim-free-steam-packages.git HEAD:auto-update
           git commit -m "Updated Steam package list" -a
           git add -A
