@@ -13,7 +13,7 @@ jobs:
         run: sudo apt-get install -y python3.11
       - name: install python packages
         run: |
-          python3 -m pip install --upgrade pip3
+          python3 -m pip3 install --upgrade pip3
           pip3 install -r requirements.txt
       - name: execute py script
         uses: nick-invision/retry@v2
