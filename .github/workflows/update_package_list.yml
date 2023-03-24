@@ -14,7 +14,7 @@ jobs:
       - name: install python packages
         run: |
           python3 -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip3 install -r requirements.txt
       - name: execute py script
         uses: nick-invision/retry@v2
         with:
