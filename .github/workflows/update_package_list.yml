@@ -10,7 +10,7 @@ jobs:
       - name: checkout repo content
         uses: actions/checkout@v2
       - name: setup python
-        run: sudo apt-get install -y python3.11
+        run: sudo apt-get install -y python3.10
       - name: install python packages
         run: |
           wget https://bootstrap.pypa.io/get-pip.py
