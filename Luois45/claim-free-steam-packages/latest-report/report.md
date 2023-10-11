@@ -1,5 +1,5 @@
 % Statistics for Luois45/claim-free-steam-packages
-% Generated for [Luois45/claim-free-steam-packages](https://github.com/Luois45/claim-free-steam-packages) with [jgehrcke/github-repo-stats](https://github.com/jgehrcke/github-repo-stats) at 2023-10-11 04:08 UTC.
+% Generated for [Luois45/claim-free-steam-packages](https://github.com/Luois45/claim-free-steam-packages) with [jgehrcke/github-repo-stats](https://github.com/jgehrcke/github-repo-stats) at 2023-10-11 05:08 UTC.
 
 
 ## Views
@@ -79,7 +79,7 @@ respond slowly to change (narrow peaks are smoothed out).
 
 <div id="chart_referrers_top_n_alltime" class="full-width-chart"></div>
 
-Top 15 referrers: 01: `Google`, 02: `github.com`, 03: `forums.unraid.net`, 04: `Bing`, 05: `DuckDuckGo`, 06: `search.brave.com`, 07: `folfy.blue`, 08: `se.search.yahoo.com`, 09: `aresune.com`, 10: `5x.github.io`, 11: `tipz.io`, 12: `edgeservices.bing.com`, 13: `youtube.com`, 14: `translate.google.com`, 15: `no.search.yahoo.com`
+Top 15 referrers: 01: `Google`, 02: `github.com`, 03: `forums.unraid.net`, 04: `Bing`, 05: `DuckDuckGo`, 06: `search.brave.com`, 07: `folfy.blue`, 08: `se.search.yahoo.com`, 09: `youtube.com`, 10: `Yahoo`, 11: `translate.google.es`, 12: `5x.github.io`, 13: `github-com.translate.goog`, 14: `tipz.io`, 15: `tr.search.yahoo.com`
 
 
 
@@ -90,7 +90,7 @@ Top 15 referrers: 01: `Google`, 02: `github.com`, 03: `forums.unraid.net`, 04: `
 
 <div id="chart_paths_top_n_alltime" class="full-width-chart"></div>
 
-Top 15 paths: 01: `Luois45/claim-free-steam-packages`, 02: `Luois45/claim-free-steam-packages/releases/tag/v1.4.3`, 03: `Luois45/claim-free-steam-packages/blob/main/docs/instructions-for-users-with-many-packages.md`, 04: `Luois45/claim-free-steam-packages/issues`, 05: `Luois45/claim-free-steam-packages/releases/tag/v1.4.2`, 06: `Luois45/claim-free-steam-packages/blob/auto-update/package_list.txt`, 07: `Luois45/claim-free-steam-packages/blob/main/get_package_list.py`, 08: `Luois45/claim-free-steam-packages/issues/166`, 09: `Luois45/claim-free-steam-packages/releases`, 10: `Luois45/claim-free-steam-packages/actions`, 11: `Luois45/claim-free-steam-packages/blob/main/package_list.txt`, 12: `Luois45/claim-free-steam-packages/issues/17`, 13: `Luois45/claim-free-steam-packages/blob/main/.github/workflows/update_package_list.yml`, 14: `Luois45/claim-free-steam-packages/releases/latest`, 15: `Luois45/claim-free-steam-packages/blob/main/activate_packages.py`
+Top 15 paths: 01: `Luois45/claim-free-steam-packages`, 02: `Luois45/claim-free-steam-packages/releases/tag/v1.4.3`, 03: `Luois45/claim-free-steam-packages/blob/main/docs/instructions-for-users-with-many-packages.md`, 04: `Luois45/claim-free-steam-packages/issues`, 05: `Luois45/claim-free-steam-packages/releases/tag/v1.4.2`, 06: `Luois45/claim-free-steam-packages/blob/auto-update/package_list.txt`, 07: `Luois45/claim-free-steam-packages/blob/main/get_package_list.py`, 08: `Luois45/claim-free-steam-packages/issues/166`, 09: `Luois45/claim-free-steam-packages/releases`, 10: `Luois45/claim-free-steam-packages/issues/17`, 11: `Luois45/claim-free-steam-packages/actions`, 12: `Luois45/claim-free-steam-packages/blob/main/package_list.txt`, 13: `Luois45/claim-free-steam-packages/issues/114`, 14: `Luois45/claim-free-steam-packages/discussions`, 15: `Luois45/claim-free-steam-packages/releases/latest`
 
 
 <script type="text/javascript">
