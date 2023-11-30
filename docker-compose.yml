@@ -9,7 +9,7 @@ services:
         max_attempts: 0
     volumes:
       # Replace the first path with your path to the activated_packages.txt & config.json file
-      - /c/Users/Louis/Desktop/code/ClaimSteamLicenses/acitvated_packages.txt:/usr/src/app/acitvated_packages.txt
+      - /c/Users/Louis/Desktop/code/ClaimSteamLicenses/acitvated_packages.txt:/usr/src/app/activated_packages.txt
       - /c/Users/Louis/Desktop/code/ClaimSteamLicenses/config.json:/usr/src/app/config.json:ro
       # Comment the following line if you don't want the logs in your directory
       - /c/Users/Louis/Desktop/code/ClaimSteamLicenses/logging.txt:/usr/src/app/logging.txt
