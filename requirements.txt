@@ -1,6 +1,6 @@
 ASF_IPC==2.1.0
 joblib==1.4.0
 requests-cache==1.2.0
-tqdm==4.66.1
+tqdm==4.66.2
 requests[socks]
 pyinstaller==6.5.0
