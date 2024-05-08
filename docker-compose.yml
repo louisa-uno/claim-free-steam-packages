@@ -12,6 +12,8 @@ services:
   claim-free-steam-packages:
     image: luois45/claim-free-steam-packages
     restart: unless-stopped
+    depends_on:
+      - archisteamfarm
     volumes:
       # Replace the first path with your path to the activated_packages.txt & config.json file
       - /mnt/docker-volumes/claim-free-steam-packages/acitvated_packages.txt:/usr/src/app/activated_packages.txt
