@@ -16,7 +16,7 @@ The regularly updated database contains more than 15,000 packages that will be a
 ## Instruction of usage
 
 1. Download the latest [ArchiSteamFarm](https://github.com/JustArchiNET/ArchiSteamFarm/releases/latest) release
-2. Set up [ArchiSteamFarm](https://github.com/JustArchiNET/ArchiSteamFarm/wiki/Setting-up)
+2. [Set up ArchiSteamFarm](https://github.com/JustArchiNET/ArchiSteamFarm/wiki/Setting-up)
 3. Download the [Windows executable](https://github.com/Luois45/claim-free-steam-packages/releases/latest) or just clone this repository
 4. Execute the activate_packages script or executable
 5. The script will create a activated_packages.txt and config.json file after execution. Don't edit or delete it unless you know what you're doing.
