@@ -7,7 +7,8 @@
         ]
     },
     "STEAM": {
-        "username": "your STEAM username"
+        "id": "your STEAM id",
+        "apikey": "your STEAM apikey"
     },
     "repeat_hour_delay": "2"
 }

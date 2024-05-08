@@ -46,16 +46,19 @@ def createConfig():
 	        "accounts": ["ASF"]
 	    },
 	    "STEAM": {
-	        "username": "your STEAM username"
+	        "id": "your STEAM id",
+			"apikey": "your STEAM apikey"
 	    },
 	    "repeat_hour_delay": "2"
 	}
-	config["IPC"]["host"] = input("Enter your ArchiSteamFarm host address: ")
+	config["IPC"]["host"] = input("Enter your ArchiSteamFarm host address (Example: http://192.168.1.188:21242): ")
 	config["IPC"]["password"] = input(
 	    "Enter your ArchiSteamFarm host password: ")
-	config["STEAM"]["username"] = input(
-	    "Entering your steam username will download the IDs of the Steam games you own to skip them when activating packages.\nIf you don't want to enter your username just leave it empty and press enter.\nThe steam username is the username in the url when opening your steam profile.\nexample: https://steamcommunity.com/id/Louis_45/ → Louis_45 is the steam username\nYour Steam username:"
+	config["IPC"]["accounts"][0] = input("Enter the name of your bot name in ASF: ")
+	config["STEAM"]["id"] = input(
+	    "Entering your steam ID will download the IDs of the Steam games you own to skip them when activating packages.\nIf you don't want to enter your ID just leave it empty and press enter.\nYou can find it out here. https://www.steamidfinder.com/ You need the steamID64 in Dec\nexample: https://steamcommunity.com/id/Louis_45/ → 76561198841548760 is the ID\nYour Steam ID: "
 	)
+	config["STEAM"]["apikey"] = input("Entering your steam apikey is necessary for checking the already activated packages. You can find it out/register it here. https://steamcommunity.com/dev/apikey\nYour Steam apikey: ")
 	log.debug("Saving config file")
 	with open("config.json", "w") as f:
 		f.write(json.dumps(config))
@@ -81,10 +84,11 @@ async def activatePackages(asf, tries):
 	except FileNotFoundError:
 		with open('activated_packages.txt', 'w') as f:
 			log.info("Created activated_packages file")
-			steamUsername = config["STEAM"]["username"]
-			if steamUsername != "" and steamUsername != "your STEAM username":
+			steamId = config["STEAM"]["id"]
+			steamApikey = config["STEAM"]["apikey"]
+			if steamId != "" and steamId != "your STEAM id" and steamApikey != "" and steamApikey != "your STEAM apikey":
 				with requests.get(
-				    f"https://steamcommunity.com/id/{steamUsername}/games/?tab=all"
+				    f"https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key={steamApikey}&steamid={steamId}&format=json"
 				) as r:
 					html = r.text
 					regex = re.compile('"appid":(\d+),')
