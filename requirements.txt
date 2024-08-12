@@ -3,4 +3,4 @@ joblib==1.4.2
 requests-cache==1.2.0
 tqdm==4.66.4
 requests[socks]
-pyinstaller==6.6.0
+pyinstaller==6.10.0
