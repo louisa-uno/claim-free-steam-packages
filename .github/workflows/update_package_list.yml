@@ -12,7 +12,7 @@ jobs:
       - name: setup python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.8'
+          python-version: '3.11'
       - name: setup git
         run: sudo apt-get install -y git
       - name: install python packages
