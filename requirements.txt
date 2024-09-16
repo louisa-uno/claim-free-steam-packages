@@ -4,3 +4,4 @@ requests-cache==1.2.0
 tqdm==4.66.4
 requests[socks]
 pyinstaller==6.6.0
+urllib3>=2.2.2 # not directly required, pinned by Snyk to avoid a vulnerability
